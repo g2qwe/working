@@ -1,43 +1,48 @@
-import React from 'react';
-// import './Item.css';
-
-
+import React from 'react'
+import PropTypes from 'prop-types'
 
 class Item extends React.Component {
-    constructor(props) {
-        super();
-        this.state = {
-            item: props.item
-        };
+    state = {
+        visible: false,
+    }
 
+
+    delete(id) {
+        this.props.delete(id);
+    }
+
+    onBtnClickHandler = e => {
+        console.log('ITEM WORKS',this.props)
+        e.preventDefault()
+        const { id } = this.props.item
+        this.props.onDeleteItem(id)
     }
 
 
 
-    deleteItem(e) {
-        this.parentDeleteCallback(this.state.item.id);
+    handleReadMoreClck = e => {
+        e.preventDefault()
+        this.setState({ visible: true })
     }
-
-    togleItemsStatus(e) {
-        const newItem = {
-            ...this.state.item,
-            isDone: !this.state.item.isDone
-        };
-
-        this.newState({
-            task: newItem
-        });
-
-    }
-
     render() {
+        const { text } = this.props.item
+
         return (
-            <div class={this.state.isDone ? "item done" : "item"}>
-                <input type="checkbox"  />
-                {this.state.item.text}
-                <span class="delete">х</span>
+            <div className="item">
+                <p className="list__text">{text}</p>
+                <button className="add__btn"
+                    onClick={this.onBtnClickHandler} > delete </button>
             </div>
         )
     }
 }
-export default Item
+
+Item.propTypes = {
+    data: PropTypes.shape({
+        id: PropTypes.number.isRequired, // добавили id, это число, обязательно
+        text: PropTypes.string.isRequired,
+
+    }),
+}
+
+export { Item }

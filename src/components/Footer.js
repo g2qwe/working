@@ -1,5 +1,6 @@
 import React from 'react';
-import './Footer.css';
+//import './Footer.css';
+
 
 
 class Footer extends React.Component {
@@ -8,13 +9,13 @@ class Footer extends React.Component {
   render() {
   return (
     <div>
-    <span className =""><strong>1</strong> items left</span>
-    <ul className="filters">
+    
+    <ul className="filter">
       <li>
-        <a href="#/" ></a>
+        <a href="#/all">All</a>
       </li>
       <li>
-        <a href="#/active" className="">Active</a>
+        <a href="#/active">Active</a>
       </li>
       <li>
         <a href="#/completed">Completed</a>

@@ -1,6 +1,7 @@
-import React from 'react';
-import './List.css';
-import Item from './Item'
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Item } from './Item'
+
 
 class List extends React.Component {
 
@@ -13,12 +14,12 @@ class List extends React.Component {
 
   renderItem = () => {
    console.log('this props', this.props)
-    const { data } = this.props;
+    const { data } = this.props
     let list = null
 
     if (data && data.length) {
-      list = data.map(function (item) {
-        return <Item item={item} />
+      list = data.map(item => {
+        return <Item key={item.id} item={item} onDeleteItem={this.props.onDeleteItem}/>
       })
     } else {
       list = <p></p>
@@ -28,20 +29,24 @@ class List extends React.Component {
   }
 
   render() {
+    const {data} = this.props
 
     console.log('PROPS', this.props)
     return (
-      <div>
+      <div className="list">
         {this.renderItem()} 
-        {this.props.data && this.props.data.length ? (
+        {data && this.props.data.length ? (
           <strong className={'item__count'}>
             Всего: {this.props.data.length}
           </strong>
         ) : null}
       </div>
-    )
+    );
   }
 }
 
+List.propTypes = {
+  data: PropTypes.array.isRequired,
+}
 
 export default List
